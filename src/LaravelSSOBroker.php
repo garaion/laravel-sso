@@ -7,6 +7,8 @@ use Zefy\LaravelSSO\Exceptions\MissingConfigurationException;
 use Zefy\SimpleSSO\SSOBroker;
 use GuzzleHttp;
 
+use Illuminate\Support\Str;
+
 /**
  * Class SSOBroker. This class is only a skeleton.
  * First of all, you need to implement abstract functions in your own class.
@@ -68,7 +70,8 @@ class LaravelSSOBroker extends SSOBroker
         }
 
         // If cookie token doesn't exist, we need to create it with unique token...
-        $this->token = str_random(40);
+        
+        $this->token = Str::random(40);
         Cookie::queue(Cookie::make($this->getCookieName(), $this->token, 60));
 
         // ... and attach it to broker session in SSO server.
